@@ -8,14 +8,6 @@
   ],
   "routes": [
     {
-      "src": "/enter",
-      "dest": "api/index.js"
-    },
-    {
-      "src": "/getbot",
-      "dest": "api/index.js"
-    },
-    {
       "src": "/(.*)",
       "dest": "api/index.js"
     }
