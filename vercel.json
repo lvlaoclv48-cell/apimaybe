@@ -9,15 +9,15 @@
   "routes": [
     {
       "src": "/enter",
-      "dest": "/api/index.js?path=enter"
+      "dest": "api/index.js"
     },
     {
       "src": "/getbot",
-      "dest": "/api/index.js?path=getbot"
+      "dest": "api/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/api/index.js?path=notfound"
+      "dest": "api/index.js"
     }
   ]
 }
