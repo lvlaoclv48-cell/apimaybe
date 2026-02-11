@@ -7,10 +7,10 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-// ТВОИ ДАННЫЕ - ВСЁ РАБОЧЕЕ!
-const BIN_ID = '698cb60043b1c97be97737c8';  // НОВЫЙ бинар с {"bots":[]}
-const MASTER_KEY = '$2a$10$QHXRScaYbQN5OSwoxz1kHOgi2cd6/QVOp.MgcwRgHJ5bVqT8Q2zNe';
-const ACCESS_KEY = '$2a$10$LQLWRveSyBCPOlWvqdbeaOFa93X8DSfuHNafyqSruxcnvJqK/cwkK';
+// ТВОИ НОВЫЕ РАБОЧИЕ ДАННЫЕ!
+const BIN_ID = '698cea3143b1c97be9779adc';
+const MASTER_KEY = '$2a$10$0ezMcnPpbnjeyRuZUqit1.jU1.Q56F5dKtPDktEJQQ7zGZP2.4Z3W';
+const ACCESS_KEY = '$2a$10$I6Ultv1H8aeBZbNCD7uC2OkeSRucprKbWXYQ282QpJlMu2o69AMPe';
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -77,7 +77,6 @@ export default async function handler(req, res) {
     }
 
     try {
-      // Проверка через Telegram API
       const tgRes = await axios.get(`https://api.telegram.org/bot${token}/getMe`);
       
       if (!tgRes.data.ok) {
@@ -92,7 +91,6 @@ export default async function handler(req, res) {
       const botInfo = tgRes.data.result;
       const username = botInfo.username;
 
-      // Получаем текущие данные
       const getRes = await axios.get(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
         headers: { 
           'X-Master-Key': ACCESS_KEY,
@@ -102,7 +100,6 @@ export default async function handler(req, res) {
 
       let bots = getRes.data.bots || [];
 
-      // Проверяем существование
       if (bots.find(b => b.username === username)) {
         res.writeHead(409, headers);
         res.end(JSON.stringify({ 
@@ -113,7 +110,6 @@ export default async function handler(req, res) {
         return;
       }
 
-      // Добавляем нового бота
       bots.push({
         token: token,
         username: username,
@@ -121,7 +117,6 @@ export default async function handler(req, res) {
         addedAt: new Date().toISOString()
       });
 
-      // Сохраняем
       await axios.put(`https://api.jsonbin.io/v3/b/${BIN_ID}`, 
         { bots: bots },
         {
@@ -153,7 +148,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // Все остальные пути - 404
   res.writeHead(404, headers);
   res.end(JSON.stringify({ 
     error: 'This page is not available',
