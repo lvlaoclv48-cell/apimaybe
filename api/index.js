@@ -116,7 +116,7 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error('GetBot error:', error.message);
       res.writeHead(500, headers);
-      res.end(JSON.stringify({ error: 'Failed to fetch bots', success: false }));
+      res.end(JSON.stringify({ error: 'пошел нахуй', success: false }));
     }
     return;
   }
